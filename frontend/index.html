@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlogSpace — API Dashboard</title>
+  <meta name="description" content="A sleek frontend for the BlogSpace REST API — manage users, articles, follows and more." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">✦Blog Space</div>
+
+      <nav class="nav">
+        <p class="nav-section">Auth</p>
+        <a class="nav-link" href="#register" id="nav-register">
+          <span class="nav-icon">📝</span> <span>Register</span>
+        </a>
+        <a class="nav-link" href="#login" id="nav-login">
+          <span class="nav-icon">🔐</span> <span>Login</span>
+        </a>
+
+        <p class="nav-section">Articles</p>
+        <a class="nav-link" href="#articles" id="nav-articles">
+          <span class="nav-icon">📰</span> <span>All Articles</span>
+        </a>
+        <a class="nav-link" href="#new-article" id="nav-new-article">
+          <span class="nav-icon">✍️</span> <span>Write Article</span>
+        </a>
+        <a class="nav-link" href="#single-article" id="nav-single-article">
+          <span class="nav-icon">🔍</span> <span>Find Article</span>
+        </a>
+
+        <p class="nav-section">Social</p>
+        <a class="nav-link" href="#profile" id="nav-profile">
+          <span class="nav-icon">👤</span> <span>Profile & Follow</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ── Main View ── -->
+    <main class="main">
+      <div id="view"></div>
+    </main>
+
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer"></div>
+
+  <!-- SPA entry point (module so ES imports work) -->
+  <script type="module" src="./app.js"></script>
+
+</body>
+</html>

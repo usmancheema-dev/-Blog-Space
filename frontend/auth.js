@@ -1,0 +1,83 @@
+import { apiFetch, setSession, clearSession, getSession } from './api.js';
+
+function renderRegister() {
+  return `
+    <div class="card">
+      <h2 class="card-title">Create Account</h2>
+      <form id="registerForm" class="form">
+        <div class="form-group">
+          <label>Username</label>
+          <input id="reg-username" type="text" placeholder="your_username" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input id="reg-email" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="reg-password" type="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <p class="form-footer">Already have an account? <a href="#login">Login</a></p>
+    </div>
+  `;
+}
+
+function renderLogin() {
+  const session = getSession();
+  return `
+    <div class="card">
+      <h2 class="card-title">Welcome Back</h2>
+      ${session ? `<div class="alert alert-info">Logged in as <strong>${session.username}</strong> &nbsp;<button class="btn btn-sm btn-danger" id="logoutBtn">Logout</button></div>` : ''}
+      <form id="loginForm" class="form">
+        <div class="form-group">
+          <label>Username</label>
+          <input id="log-username" type="text" placeholder="your_username" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="log-password" type="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p class="form-footer">No account? <a href="#register">Register</a></p>
+    </div>
+  `;
+}
+
+function bindRegister() {
+  document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('reg-username').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value.trim();
+    showToast('Registering...', 'info');
+    const { ok, data } = await apiFetch('POST', '/users/auth/register', { username, email, password });
+    showToast(data.msg, ok ? 'success' : 'error');
+  });
+}
+
+function bindLogin() {
+  document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('log-username').value.trim();
+    const password = document.getElementById('log-password').value.trim();
+    showToast('Logging in...', 'info');
+    const { ok, data } = await apiFetch('POST', '/users/auth/login', { username, password });
+    if (ok) {
+      setSession({ username });
+      showToast(data.msg, 'success');
+      setTimeout(() => { window.location.hash = '#new-article'; }, 800);
+    } else {
+      showToast(data.msg, 'error');
+    }
+  });
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    clearSession();
+    showToast('Logged out', 'info');
+    window.location.hash = '#login';
+  });
+}
+
+export { renderRegister, renderLogin, bindRegister, bindLogin };
