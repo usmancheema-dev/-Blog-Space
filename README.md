@@ -104,11 +104,11 @@ Standard HTTP status codes are used:
 
  🌍 Deployment
 
-Backend deployed on: *(Add your link here)*
+Backend deployed on: 
 Example:
 
 ```text
-https://your-api.onrender.com
+https://blog-space-production.up.railway.app/
 ```
 
 ---
@@ -131,4 +131,4 @@ This project is open-source and free to use.
  👨‍💻 Author
 
 Your Name
-GitHub: [https://github.com/usmancheema-dev/-Blog-Space](https://github.com/usmancheema-dev/-Blog-Space.git)
+GitHub: [https://github.com/usmancheema-dev/-Blog-Space]
