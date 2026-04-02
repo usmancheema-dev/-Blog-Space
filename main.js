@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: './.env' });
+dotenv.config();
 
 const port = process.env.PORT || 8080;
 
@@ -21,9 +21,12 @@ app.use('/api/v1/articles', Articlerouter);
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, 'frontend')));
-
 DBConnection()
-   .then(() => {
-      app.listen(port, () => console.log(`server successfully connected on port:${port}`));
-   })
-   .catch((err) => console.log(`error happened in connecting ${DB_Name}: ${err}`));
+  .then(() => {
+    console.log(`DB ${DB_Name} connected successfully`);
+    app.listen(port, () => console.log(`Server running on port: ${port}`));
+  })
+  .catch((err) => {
+    console.error(`Error connecting ${DB_Name}:`, err);
+    process.exit(1); // ensures Railway knows app failed
+  });
