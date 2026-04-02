@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: './.env' });
 
-const port = process.env.PORT || 2000;
+const port = process.env.PORT || 8080;
 
 // API routes
 app.use('/api/v1/users', router);
