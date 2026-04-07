@@ -7,7 +7,7 @@ const saltRounds = 12;
 async function hashpassword(password) {
 
     try {
-    const hashedPassword =  bcrypt.hash(password,saltRounds);
+    const hashedPassword = await bcrypt.hash(password,saltRounds);
     return hashedPassword;
     } catch (error) {
         console.log(` ${error} occurs during hasing password `);
@@ -21,7 +21,7 @@ async function hashpassword(password) {
 async function comparedPassword(password , hashedPassword ) {
 
     try {
-    const comparedPassword =  bcrypt.compare(password,hashedPassword);
+    const comparedPassword = await bcrypt.compare(password,hashedPassword);
     return comparedPassword;
     } catch (error) {
         console.log(` ${error} occurs during comparing  password `);

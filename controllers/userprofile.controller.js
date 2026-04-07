@@ -1,6 +1,6 @@
-import { asyncHandler } from "../utils/asyncHandler.js"
 import { User } from "../models/User.schema.js";
 import mongoose from "mongoose";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 
 const aboutUpdate = asyncHandler(async (req, res) => {

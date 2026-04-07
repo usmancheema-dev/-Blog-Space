@@ -12,19 +12,19 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if ([username, email, password].some((list) => list?.trim() === "")) {
 
-    return res.status(401).json({ msg: 'please provided all fields ' })
+    return res.status(400).json({ msg: 'please provided all fields ' })
   }
 
   const hashedpassword = await hashpassword(password);
 
   if (!hashedpassword) {
-    return res.status(401).json({ msg: 'cannot hasinng user password ' })
+    return res.status(400).json({ msg: ' cannot hash user password ' })
   }
 
-  const existinguser = await User.findOne({ username, email })
+  const existinguser = await User.findOne({$or:[{username},{email}]});
 
   if (existinguser) {
-    return res.status(401).json({ msg: 'user credintials exitsts already ' })
+    return res.status(400).json({ msg: ' User  already Exists' })
 
   }
 
@@ -35,22 +35,18 @@ const registerUser = asyncHandler(async (req, res) => {
 
   })
 
-
-
-  if (!user) {
-    return res.status(401).json({ msg: ' error occur in creating User ' })
+   if (!user) {
+    return res.status(400).json({ msg: ' error occur in creating User ' })
 
   } else {
     res.status(200).json({ msg: '  User Created Successfuly ' })
 
   }
-
-  res.end();
-
+    res.end();
 
 })
 
-const loginUser = asyncHandler(async (req, res) => {
+  const loginUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   if ([username, password].some((list) => list?.trim() === "")) {
@@ -66,7 +62,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const comparedpassword = await comparedPassword(password, user.password);
 
   if (!comparedpassword) {
-    return res.status(401).json({ msg: 'Wrong password ' })
+    return res.status(400).json({ msg: 'Wrong password ' })
   }
 
   res.status(200).json({ msg: '  User login Successfuly ' } , user.username),
@@ -75,4 +71,3 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 export { registerUser, loginUser }
-

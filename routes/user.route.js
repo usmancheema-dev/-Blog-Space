@@ -7,10 +7,10 @@ import {userFollowersystem , userUnFollowersystem} from  '../controllers/userFol
 const router = Router();
 
 
-router.post('/auth/register' , registerUser);
-router.post('/auth/login' , loginUser);
-router.post('/:userId',aboutUpdate);
-router.get('/:usernameorID',getUserProfile);
+router.post('/auth/register' ,registerUser);
+router.post('/auth/login'    ,loginUser);
+router.post('/:userId'      ,aboutUpdate);
+router.get('/:usernameorID' ,getUserProfile);
 router.post('/followers/:id',userFollowersystem);
 router.post('/followers/:id',userUnFollowersystem);
 export {router};

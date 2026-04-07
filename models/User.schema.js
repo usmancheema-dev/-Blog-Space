@@ -42,9 +42,10 @@ const userSchema =   mongoose.Schema({
     about:{
         type : String,
         default : ""
+    },
+     refreshToken:{
+        type : String
     }
-
-
 },{timestamps: true})
 /** @type {import('../models/User.schema.js').User} */
 const  User = mongoose.model('User' , userSchema);
