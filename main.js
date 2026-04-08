@@ -10,10 +10,10 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 dotenv.config(); 
 
 
-const port = process.env.PORT || 2000;
 
 // API routes
 app.use('/api/v1/users', router);
@@ -21,6 +21,7 @@ app.use('/api/v1/articles', Articlerouter);
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, 'frontend')));
+const port = process.env.PORT || 2000;
 app.listen(port, () => console.log(`Server running on port: ${port}`));
 DBConnection()
 .then(() => {console.log(`DB ${DB_Name} connected successfully`);})

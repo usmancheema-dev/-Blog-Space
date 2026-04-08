@@ -61,7 +61,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
         return res.status(404).json({ msg: 'User not found' });
 
     }
-    res.json(userProfile.followers);
+    res.json(userProfile.email);
 
 })
 
