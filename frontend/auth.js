@@ -66,17 +66,28 @@ function bindLogin() {
     showToast('Logging in...', 'info');
     const { ok, data } = await apiFetch('POST', '/users/auth/login', { username, password });
     if (ok) {
-      setSession({ username });
-      showToast(data.msg, 'success');
+      // Store everything (username, accessToken, refreshToken)
+      setSession({ 
+        username: data.user?.username || username, 
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken 
+      });
+      showToast('Login Successful', 'success');
       setTimeout(() => { window.location.hash = '#new-article'; }, 800);
     } else {
-      showToast(data.msg, 'error');
+      showToast(data.msg || 'Login failed', 'error');
     }
   });
-  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+
+  document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+    showToast('Logging out...', 'info');
+    // Call the backend to invalidate the session
+    const { ok } = await apiFetch('GET', '/users/auth/logout');
+    
+    // Always clear session locally regardless of server response for better UX
     clearSession();
-    showToast('Logged out', 'info');
-    window.location.hash = '#login';
+    showToast('Logged out successfully', 'success');
+    setTimeout(() => { window.location.hash = '#home'; }, 500);
   });
 }
 

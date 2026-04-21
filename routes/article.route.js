@@ -1,10 +1,12 @@
 import { Router } from "express";
-import {creatArticle , getSingleArticle , getArticle } from "../controllers/article.Controller.js";
+import { createArticle, getSingleArticle, getArticle } from "../controllers/article.Controller.js";
+import { JwtVerification } from "../middlewares/jwt.auth.js";
+
 const Articlerouter = Router();
 
+Articlerouter.post('/creates', JwtVerification, createArticle);
 
-Articlerouter.post('/article/:id',creatArticle);
-Articlerouter.get('/',getArticle);
-Articlerouter.get('/:id',getSingleArticle);
+Articlerouter.get('/', getArticle);
+Articlerouter.get('/:title', getSingleArticle);
 
-export{Articlerouter};
+export { Articlerouter };

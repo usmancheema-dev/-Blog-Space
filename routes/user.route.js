@@ -1,16 +1,19 @@
 // user main routes
 import { Router } from "express";
-import {loginUser, registerUser} from '../controllers/userAuth.controler.js';
-import  {aboutUpdate , getUserProfile} from '../controllers/userprofile.controller.js';
-import {userFollowersystem , userUnFollowersystem} from  '../controllers/userFollow.controller.js'
-
+import { loginUser, registerUser , logoutUser } from '../controllers/userAuth.controler.js';
+import { aboutUpdate, getUserProfile } from '../controllers/userprofile.controller.js';
+import { userFollowersystem, userUnFollowersystem } from '../controllers/userFollow.controller.js'
+import { JwtVerification } from '../middlewares/jwt.auth.js';
 const router = Router();
 
 
-router.post('/auth/register' ,registerUser);
-router.post('/auth/login'    ,loginUser);
-router.post('/:userId'      ,aboutUpdate);
-router.get('/:usernameorID' ,getUserProfile);
-router.post('/followers/:id',userFollowersystem);
-router.post('/followers/:id',userUnFollowersystem);
-export {router};
+router.post('/auth/register'  , registerUser);
+router.post('/auth/login'     , loginUser);
+router.get('/auth/logout' , JwtVerification , logoutUser);
+
+router.post( '/:username'    , aboutUpdate);
+router.get(  '/:username'    , JwtVerification , getUserProfile);
+ 
+router.post('/followers/:id' , userFollowersystem);
+router.post('/followers/:id' , userUnFollowersystem);
+export { router };

@@ -5,32 +5,28 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 const aboutUpdate = asyncHandler(async (req, res) => {
 
-    const { about } = req.body;
+    const { username } = req.params;   //  this is use  for geting data from parameters 
+    const { about }    = req.body;     //   this is use  for geting data from body .json , form etc 
 
-    if (!about) {
-        return res.status(409).json({ msg: ' please provided about fields ' })
+
+    if (!username) {
+        return res.status(400).json({ msg: ' username not found' })
     }
 
-    const { userId } = req.params;
+    const user = await User.findOne({ username });  // this will retun full document 
 
-    if (!userId) {
-        res.status(401).json('please find by username or id only');
-    }
-    
-    let profile;
-
-    if (mongoose.Types.ObjectId.isValid(userId)) {
-        profile = await User.findById(userId);
-    }
-
-    if (!profile) {
-        profile = await User.findOneAndUpdate({ username: userId }, {about});
-    }
-    if (!profile) {
-        return res.status(404).json({ msg: 'User not found' });
+    if (!user) {
+        return res.status(404).json({ msg: ' User not exists ' });
 
     }
-    
+
+
+    const profileUpdated = await User.findByIdAndUpdate(user._id, { about });
+
+    if (!profileUpdated) {
+        return res.status(404).json({ msg: ' error occur in updating profile' });
+    }
+
     return res.status(200).json({ msg: '  about updated successfuly ' })
 
 
@@ -39,29 +35,20 @@ const aboutUpdate = asyncHandler(async (req, res) => {
 
 const getUserProfile = asyncHandler(async (req, res) => {
 
-    const { usernameorID } = req.params;
+    const { username } = req.params;
 
-    if (!usernameorID) {
-        return res.status(400).json({ msg: ' username not match' })
+    if (!username) {
+        return res.status(400).json({ msg: ' username not found' })
     }
 
-    let userProfile;
+    const user = await User.findOne({ username });
 
-
-    if (mongoose.Types.ObjectId.isValid(usernameorID)) {
-        userProfile = await User.findById(usernameorID);
-    }
-
-    if (!userProfile) {
-        userProfile = await User.findOne({ username: usernameorID });
+    if (!user) {
+        return res.status(404).json({ msg: ' User not exists ' });
 
     }
 
-    if (!userProfile) {
-        return res.status(404).json({ msg: 'User not found' });
-
-    }
-    res.json(userProfile.email);
+    res.json(user.email);
 
 })
 

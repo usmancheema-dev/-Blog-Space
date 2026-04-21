@@ -4,6 +4,7 @@ import {
     bindAllArticles, bindCreateArticle, bindSingleArticle
 } from './articles.js';
 import { renderProfile, bindProfile } from './profile.js';
+import { renderHome, bindHome } from './home.js';
 
 // ── Global toast ─────────────────────────────────────────────────────────────
 window.showToast = function (msg, type = 'info') {
@@ -17,6 +18,7 @@ window.showToast = function (msg, type = 'info') {
 
 // ── Routes ───────────────────────────────────────────────────────────────────
 const routes = {
+    '#home': { render: renderHome, bind: bindHome },
     '#register': { render: renderRegister, bind: bindRegister },
     '#login': { render: renderLogin, bind: bindLogin },
     '#articles': { render: renderAllArticles, bind: bindAllArticles },
@@ -26,7 +28,7 @@ const routes = {
 };
 
 function navigate(hash) {
-    const route = routes[hash] || routes['#articles'];
+    const route = routes[hash] || routes['#home'];
     const view = document.getElementById('view');
     view.innerHTML = route.render();
     route.bind();

@@ -8,7 +8,7 @@ function renderProfile() {
       <div class="card">
         <h2 class="card-title">👤 View Profile</h2>
         <div class="form-row">
-          <input id="view-userId" type="text" placeholder="User MongoDB ObjectId" />
+          <input id="view-userId" type="text" placeholder=" Enter username" />
           <button class="btn btn-primary" id="viewProfileBtn">Fetch</button>
         </div>
         <div id="profileResult" class="result-box"></div>
@@ -20,7 +20,7 @@ function renderProfile() {
         <form id="updateAboutForm" class="form">
           <div class="form-group">
             <label>User ID</label>
-            <input id="about-userId" type="text" placeholder="MongoDB ObjectId" required />
+            <input id="about-userId" type="text" placeholder=" Enter username" required />
           </div>
           <div class="form-group">
             <label>About</label>
@@ -30,39 +30,39 @@ function renderProfile() {
         </form>
       </div>
 
-      <!-- Follow -->
-      <div class="card">
-        <h2 class="card-title">➕ Follow User</h2>
-        <form id="followForm" class="form">
-          <div class="form-group">
-            <label>Your ID (idA)</label>
-            <input id="follow-idA" type="text" placeholder="Your MongoDB ObjectId" required />
-          </div>
-          <div class="form-group">
-            <label>Target ID (idB)</label>
-            <input id="follow-idB" type="text" placeholder="User to follow's ObjectId" required />
-          </div>
-          <button type="submit" class="btn btn-success">Follow</button>
-        </form>
-      </div>
+    //   <!-- Follow -->
+    //   <div class="card">
+    //     <h2 class="card-title">➕ Follow User</h2>
+    //     <form id="followForm" class="form">
+    //       <div class="form-group">
+    //         <label>Your ID (idA)</label>
+    //         <input id="follow-idA" type="text" placeholder="Your MongoDB ObjectId" required />
+    //       </div>
+    //       <div class="form-group">
+    //         <label>Target ID (idB)</label>
+    //         <input id="follow-idB" type="text" placeholder="User to follow's ObjectId" required />
+    //       </div>
+    //       <button type="submit" class="btn btn-success">Follow</button>
+    //     </form>
+    //   </div>
 
-      <!-- Unfollow -->
-      <div class="card">
-        <h2 class="card-title">➖ Unfollow User</h2>
-        <form id="unfollowForm" class="form">
-          <div class="form-group">
-            <label>Your ID (idA)</label>
-            <input id="unfollow-idA" type="text" placeholder="Your MongoDB ObjectId" required />
-          </div>
-          <div class="form-group">
-            <label>Target ID (idB)</label>
-            <input id="unfollow-idB" type="text" placeholder="User to unfollow's ObjectId" required />
-          </div>
-          <button type="submit" class="btn btn-danger">Unfollow</button>
-        </form>
-      </div>
+    //   <!-- Unfollow -->
+    //   <div class="card">
+    //     <h2 class="card-title">➖ Unfollow User</h2>
+    //     <form id="unfollowForm" class="form">
+    //       <div class="form-group">
+    //         <label>Your ID (idA)</label>
+    //         <input id="unfollow-idA" type="text" placeholder="Your MongoDB ObjectId" required />
+    //       </div>
+    //       <div class="form-group">
+    //         <label>Target ID (idB)</label>
+    //         <input id="unfollow-idB" type="text" placeholder="User to unfollow's ObjectId" required />
+    //       </div>
+    //       <button type="submit" class="btn btn-danger">Unfollow</button>
+    //     </form>
+    //   </div>
 
-    </div>
+    // </div>
   `;
 }
 
