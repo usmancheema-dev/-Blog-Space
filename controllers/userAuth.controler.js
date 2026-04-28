@@ -1,13 +1,8 @@
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { User } from "../models/User.schema.js";
 import { hashpassword, comparedPassword } from '../utils/hashpassword.utility.js';
-import { validate } from "uuid";
-
 const registerUser = asyncHandler(async (req, res) => {
-  // get user details 
-  //  validation check 
-  //  check existing user 
-  //  user create  
+
   const { username, email, password } = req.body;
 
 
@@ -68,15 +63,16 @@ const loginUser = asyncHandler(async (req, res) => {
   const comparedpassword = await comparedPassword(password, user.password);
 
   if (!comparedpassword) {
-    return res.status(400).json({ msg: 'Wrong password ' })
+    return res.status(400).json({ msg: ' Wrong password ' })
   }
 
   await user.save({ validateBeforeSave: false });
-  res.status(200).json({ accessToken, refreshToken, user: { username: req.cookies} })
+  return  res.status(200).json({ accessToken, refreshToken, user: { username: req.cookies} })
 
 })
 
-const logoutUser = asyncHandler(async (req, res) => {
+const logoutUser = asyncHandler(async (req, res) =>{
+  
   await User.findByIdAndUpdate( req.user._id,{
     $unset:{
       refreshToken : ""
@@ -92,7 +88,11 @@ const refreshTokengenration = asyncHandler((req, res) => {
 })
 
 
+const changePassword = asyncHandler((req,res)=>{
+          const {oldPassword , newPassword} =  req.body;
 
+
+})
 
 export { registerUser, loginUser, logoutUser, refreshTokengenration }
 

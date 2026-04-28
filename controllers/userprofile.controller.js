@@ -1,12 +1,13 @@
 import { User } from "../models/User.schema.js";
 import mongoose from "mongoose";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/errorHadler.js";
 
 
 const aboutUpdate = asyncHandler(async (req, res) => {
 
     const { username } = req.params;   //  this is use  for geting data from parameters 
-    const { about }    = req.body;     //   this is use  for geting data from body .json , form etc 
+    const { about } = req.body;     //   this is use  for geting data from body .json , form etc 
 
 
     if (!username) {
@@ -52,4 +53,29 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 })
 
-export { aboutUpdate, getUserProfile }
+
+const updateAccountDetail = asyncHandler(async (req,res)=>{
+    const  {username , email } =  req.body;
+
+    if (!username || !email) {
+        throw new ApiError(400,' All  fields are required ' );
+        
+    }
+
+
+   const user = await User.findByIdAndUpdate(req.user?._id,{$set:{
+            username,
+            email
+   }},{new:true}).select("-password")
+
+   return res.status(200).json({msg:"Account details updated successfully", user})
+
+
+})
+
+
+const currentUser = asyncHandler(async (req, res) => {
+    return res.status(200).json({ msg: "Current user fetched successfully", user: req.user });
+})
+
+export { aboutUpdate, getUserProfile, currentUser , updateAccountDetail }

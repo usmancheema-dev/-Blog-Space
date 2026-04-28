@@ -1,19 +1,21 @@
 // user main routes
 import { Router } from "express";
-import { loginUser, registerUser , logoutUser } from '../controllers/userAuth.controler.js';
-import { aboutUpdate, getUserProfile } from '../controllers/userprofile.controller.js';
+import { loginUser, registerUser, logoutUser } from '../controllers/userAuth.controler.js';
+import { aboutUpdate, getUserProfile, currentUser, updateAccountDetail } from '../controllers/userprofile.controller.js';
 import { userFollowersystem, userUnFollowersystem } from '../controllers/userFollow.controller.js'
 import { JwtVerification } from '../middlewares/jwt.auth.js';
 const router = Router();
 
 
-router.post('/auth/register'  , registerUser);
-router.post('/auth/login'     , loginUser);
-router.get('/auth/logout' , JwtVerification , logoutUser);
+router.post('/auth/register', registerUser);
+router.post('/auth/login', loginUser);
+router.get('/auth/logout', JwtVerification, logoutUser);
 
-router.post( '/:username'    , aboutUpdate);
-router.get(  '/:username'    , JwtVerification , getUserProfile);
- 
-router.post('/followers/:id' , userFollowersystem);
-router.post('/followers/:id' , userUnFollowersystem);
+router.post('/:username', JwtVerification, aboutUpdate);
+router.post("/update-account", JwtVerification, updateAccountDetail);
+router.get("/current-user", JwtVerification, currentUser);
+router.get('/:username', JwtVerification, getUserProfile);
+
+router.post('/followers/:id', userFollowersystem);
+router.post('/followers/:id', userUnFollowersystem);
 export { router };

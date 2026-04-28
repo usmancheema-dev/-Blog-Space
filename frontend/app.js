@@ -3,8 +3,13 @@ import {
     renderAllArticles, renderCreateArticle, renderSingleArticle,
     bindAllArticles, bindCreateArticle, bindSingleArticle
 } from './articles.js';
-import { renderProfile, bindProfile } from './profile.js';
 import { renderHome, bindHome } from './home.js';
+import { renderDashboard, bindDashboard } from './dashboard.js';
+import { renderExplore, bindExplore } from './explore.js';
+import { renderSettings, bindSettings } from './settings.js';
+import { renderFeed, bindFeed } from './feed.js';
+import { renderBookmarks, bindBookmarks } from './bookmarks.js';
+import { renderAuthor, bindAuthor } from './author.js';
 
 // ── Global toast ─────────────────────────────────────────────────────────────
 window.showToast = function (msg, type = 'info') {
@@ -24,7 +29,12 @@ const routes = {
     '#articles': { render: renderAllArticles, bind: bindAllArticles },
     '#new-article': { render: renderCreateArticle, bind: bindCreateArticle },
     '#single-article': { render: renderSingleArticle, bind: bindSingleArticle },
-    '#profile': { render: renderProfile, bind: bindProfile },
+    '#dashboard': { render: renderDashboard, bind: bindDashboard },
+    '#explore': { render: renderExplore, bind: bindExplore },
+    '#settings': { render: renderSettings, bind: bindSettings },
+    '#feed': { render: renderFeed, bind: bindFeed },
+    '#bookmarks': { render: renderBookmarks, bind: bindBookmarks },
+    '#author': { render: renderAuthor, bind: bindAuthor },
 };
 
 function navigate(hash) {
@@ -39,7 +49,32 @@ function navigate(hash) {
     });
 }
 
+// === Theme Management ===
+function initTheme() {
+  const toggleBtn = document.getElementById('themeToggleBtn');
+  const root = document.documentElement;
+  
+  // Check local storage or system preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    root.setAttribute('data-theme', savedTheme);
+  } else {
+    // Default to light for Medium style
+    root.setAttribute('data-theme', 'light');
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+}
+
 window.addEventListener('hashchange', () => navigate(window.location.hash));
 window.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     navigate(window.location.hash || '#articles');
 });

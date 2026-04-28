@@ -1,0 +1,11 @@
+#	Controller	What you'll learn
+
+
+1	deleteArticle	Ownership check basics   done 
+2	updateArticle	Partial updates, don't overwrite    done  
+3	changePassword	Multi-step validation flow          done 
+4	refreshTokenGeneration	Token rotation security      done 
+5	likeArticle	Toggle logic, array manipulation
+6	searchArticles	Query params, regex, pagination     
+7	getArticleWithAuthor	.populate() for joining data   
+8	getUserFeed	Combining everything
