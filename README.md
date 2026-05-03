@@ -86,7 +86,7 @@ npm start
 
  🔒 Authentication
 
-Authentication will be added soon 😁
+Authentication is Added Using JWT  😁
 
 ---
 
@@ -133,3 +133,7 @@ This project is open-source and free to use.
 
 Your Name
 GitHub: [https://github.com/usmancheema-dev/-Blog-Space]
+
+
+
+---  More Features Soon:
