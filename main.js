@@ -1,9 +1,9 @@
 import { DB_Name } from './constant.js'
 import dotenv from 'dotenv';
 import { DBConnection } from './connection.js';
-import { router } from './routes/user.route.js'
+import { router } from './src/routes/user.route.js'
 import { app } from './app.js';
-import { Articlerouter } from './routes/article.route.js';
+import { Articlerouter } from './src/routes/article.route.js';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -31,9 +31,8 @@ const port = process.env.PORT || 2000;
 app.listen(port, () => console.log(`Server running on port: ${port}`));
 
 
-DBConnection()
-    .then(() => { console.log(`DB ${DB_Name} connected successfully`); })
-    .catch((err) => {
+DBConnection().then(() => { console.log(` ${DB_Name} connected successfully`); }).catch(
+    (err)=>{
         console.error(`Error connecting ${DB_Name}:`, err);
         process.exit(1);
     });

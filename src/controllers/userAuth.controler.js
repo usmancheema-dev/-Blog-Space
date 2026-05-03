@@ -8,7 +8,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if ([username, email, password].some((list) => list?.trim() === "")) {
 
-    return res.status(400).json({ msg: 'please provided all fields ' })
+    return res.status(400).json({ msg: ' please provided all fields ' })
   }
 
   const hashedpassword = await hashpassword(password);

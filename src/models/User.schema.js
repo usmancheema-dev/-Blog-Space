@@ -48,7 +48,7 @@ const userSchema = mongoose.Schema({
     },
     
 }, { timestamps: true })
-/** @type {import('../models/User.schema.js').User} */
+/** @type {import('./User.schema.js').User} */
 
 
 

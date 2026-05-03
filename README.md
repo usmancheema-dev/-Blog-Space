@@ -108,7 +108,7 @@ Backend deployed on:
 Example:
 
 ```text
-https://blog-space-app.up.railway.app/
+https://blog-space-3pk6.onrender.com/
 
 ```
 
