@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env?.VITE_API_URL || '/api/v1';
+const API_BASE = import.meta.env?.VITE_API_URL || 'https://blog-scpace-gold.vercel.app/';
 
 async function apiFetch(method, path, body = null) {
     const session = getSession();
