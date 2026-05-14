@@ -63,7 +63,13 @@ function bindRegister() {
 
     showToast('Registering...', 'info');
     const { ok, data } = await apiFetch('POST', '/users/auth/register', formData);
-    showToast(data.msg || (ok ? 'Registration Successful' : 'Registration failed'), ok ? 'success' : 'error');
+    
+    if (ok) {
+      showToast('Registration Successful! Please login.', 'success');
+      setTimeout(() => { window.location.hash = '#login'; }, 1000);
+    } else {
+      showToast(data.msg || 'Registration failed', 'error');
+    }
   });
 }
 
@@ -82,7 +88,8 @@ function bindLogin() {
         refreshToken: data.refreshToken 
       });
       showToast('Login Successful', 'success');
-      setTimeout(() => { window.location.hash = '#new-article'; }, 800);
+      // Redirect to profile/dashboard instead of creating new article
+      setTimeout(() => { window.location.hash = '#dashboard'; }, 800);
     } else {
       showToast(data.msg || 'Login failed', 'error');
     }
